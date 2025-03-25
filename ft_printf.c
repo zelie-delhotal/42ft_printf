@@ -6,7 +6,7 @@
 /*   By: gdelhota <gdelhota@student.42perpigna      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 19:25:54 by gdelhota          #+#    #+#             */
-/*   Updated: 2024/11/14 15:16:54 by gdelhota         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:07:37 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	ft_puthexa(long nb, char format)
 {
 	char	*base;
-	int		chars_written;
+	int		written;
 
-	chars_written = 0;
+	written = 0;
 	if (format == 'X')
 		base = "0123456789ABCDEF";
 	else
@@ -25,17 +25,19 @@ static int	ft_puthexa(long nb, char format)
 	if (format == 'p')
 	{
 		nb = (unsigned long) nb;
-		chars_written += write(1, "0x", 2);
+		written += write(1, "0x", 2);
 		format = 'x';
 	}
+	else
+		nb = (unsigned int) nb;
 	if (nb < 16)
-		chars_written += write(1, &base[nb], 1);
+		written += write(1, &base[nb], 1);
 	else
 	{
-		ft_puthexa(nb / 16, format);
-		ft_puthexa(nb % 16, format);
+		written += ft_puthexa(nb / 16, format);
+		written += ft_puthexa(nb % 16, format);
 	}
-	return (chars_written);
+	return (written);
 }
 
 static int	ft_putchar(char c)
@@ -59,7 +61,7 @@ static int	ft_putnb(int n, char format)
 		cast = -cast;
 		written += ft_putchar('-');
 	}
-	if (n > 9)
+	if (cast > 9)
 		written += ft_putnb(cast / 10, 'i');
 	written += ft_putchar(cast % 10 + '0');
 	return (written);
@@ -103,31 +105,43 @@ int	ft_printf(const char *format, ...)
 	return (n);
 }
 
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 int	main(void)
 {
 	char *s = "test";
 	char *vide = "";
-	char *vide2 = NULL;
+	void *vide2 = NULL;
 	printf("printf:\n");
 	printf("%c %c %c %c %c\n", 0, 'z', '\n', 'P', '\'');
 	ft_printf("ft_printf:\n");
 	ft_printf("%c %c %c %c %c\n", 0, 'z', '\n', 'P', '\'');
 	printf("printf:\n");
-	printf("%s %s %s %s\n", vide, s, vide2, "12345");
+	printf("%s %s %s %s\n", vide, s, (char *) vide2, "12345");
 	ft_printf("ft_printf:\n");
-	ft_printf("%s %s %s %s\n", vide, s, vide2, "12345");
+	ft_printf("%s %s %s %s\n", vide, s, (char *) vide2, "12345");
 	printf("printf:\n");
 	printf("%p %p %p %p\n", s, &s, &vide2, &vide);
 	ft_printf("ft_printf:\n");
 	ft_printf("%p %p %p %p\n", s, &s, &vide2, &vide);
 	printf("printf:\n");
-	printf("%d %d %d %d\n", s, &s, &vide2, &vide);
+	printf("%d %d %d\n", 2147483647, -2147483647 - 1, 0);
 	ft_printf("ft_printf:\n");
-	ft_printf("%p %p %p %p\n", s, &s, &vide2, &vide);
+	ft_printf("%d %d %d\n", 2147483647, -2147483647 - 1, 0);
+	printf("printf:\n");
+	printf("%u %u %u\n", 2147483647, -2147483647 - 1, 0);
+	ft_printf("ft_printf:\n");
+	ft_printf("%u %u %u\n", 2147483647, -2147483647 - 1, 0);
+	printf("printf:\n");
+	printf("%x %x %x\n", 2147483647, -2147483647 - 1, 0);
+	ft_printf("ft_printf:\n");
+	ft_printf("%x %x %x\n", 2147483647, -2147483647 - 1, 0);
+	printf("printf:\n");
+	printf("%x %x %x %x %x\n", -1, 2500, 12345, 2147483647, -12345);
+	ft_printf("ft_printf:\n");
+	ft_printf("%x %x %x %x %x\n", -1, 2500, 12345, 2147483647, -12345);
 	printf("printf:\n");
 	printf("%s %s %% %p %x %X\n", s, s, &s, 123, 123);
 	ft_printf("ft_printf:\n");
 	ft_printf("%s %s %% %p %x %X\n", s, s, &s, 123, 123);
-}
+}*/
