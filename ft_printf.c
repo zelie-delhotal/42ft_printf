@@ -6,7 +6,7 @@
 /*   By: gdelhota <gdelhota@student.42perpigna      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 19:25:54 by gdelhota          #+#    #+#             */
-/*   Updated: 2024/11/14 16:36:38 by gdelhota         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:58:27 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,43 +109,54 @@ int	ft_printf(const char *format, ...)
 /*#include <stdio.h>
 int	main(void)
 {
-	char *s = "test";
-	char *vide = "";
-	void *vide2 = NULL;
+	char	*s = "test";
+	char	*vide = "";
+	int		r1;
+	int		r2;
+	void	*vide2 = NULL;
 	printf("printf:\n");
-	printf("%c %c %c %c %c\n", 0, 'z', '\n', 'P', '\'');
+	r1 = printf("%c %c %c %c %c\n", 0, 'z', '\n', 'P', '\'');
 	ft_printf("ft_printf:\n");
-	ft_printf("%c %c %c %c %c\n", 0, 'z', '\n', 'P', '\'');
+	r2 = ft_printf("%c %c %c %c %c\n", 0, 'z', '\n', 'P', '\'');
+	ft_printf("return values: %i / %i\n", r1, r2);
 	printf("printf:\n");
-	printf("%s %s %s %s\n", vide, s, (char *) vide2, "12345");
+	r1 = printf("%s %s %s %s\n", vide, s, (char *) vide2, "12345");
 	ft_printf("ft_printf:\n");
-	ft_printf("%s %s %s %s\n", vide, s, (char *) vide2, "12345");
+	r2 = ft_printf("%s %s %s %s\n", vide, s, (char *) vide2, "12345");
+	ft_printf("return values: %i / %i\n", r1, r2);
 	printf("printf:\n");
-	printf("%p %p %p %p\n", s, &s, &vide2, &vide);
+	r1 = printf("%p %p %p %p\n", s, &s, &vide2, &vide);
 	ft_printf("ft_printf:\n");
-	ft_printf("%p %p %p %p\n", s, &s, &vide2, &vide);
+	r2 = ft_printf("%p %p %p %p\n", s, &s, &vide2, &vide);
+	ft_printf("return values: %i / %i\n", r1, r2);
 	printf("printf:\n");
-	printf("%p %p %p\n", (void *)9223372036854775807, (void *)0, (void *)-1);
+	r1 = printf("%p %p %p\n", (void*)9223372036854775807, (void*)0, (void*)-1);
 	ft_printf("ft_printf:\n");
-	ft_printf("%p %p %p\n", (void *)9223372036854775807, (void *)0, (void *)-1);
+	r2 = ft_printf("%p %p %p\n",(void*)9223372036854775807,(void*)0,(void*)-1);
+	ft_printf("return values: %i / %i\n", r1, r2);
 	printf("printf:\n");
-	printf("%d %d %d\n", 2147483647, -2147483647 - 1, 0);
+	r1 = printf("%d %d %d\n", 2147483647, -2147483647 - 1, 0);
 	ft_printf("ft_printf:\n");
-	ft_printf("%d %d %d\n", 2147483647, -2147483647 - 1, 0);
+	r2 = ft_printf("%d %d %d\n", 2147483647, -2147483647 - 1, 0);
+	ft_printf("return values: %i / %i\n", r1, r2);
 	printf("printf:\n");
-	printf("%u %u %u\n", 2147483647, -2147483647 - 1, 0);
+	r1 = printf("%u %u %u\n", 2147483647, -2147483647 - 1, 0);
 	ft_printf("ft_printf:\n");
-	ft_printf("%u %u %u\n", 2147483647, -2147483647 - 1, 0);
+	r2 = ft_printf("%u %u %u\n", 2147483647, -2147483647 - 1, 0);
+	ft_printf("return values: %i / %i\n", r1, r2);
 	printf("printf:\n");
-	printf("%x %x %x\n", 2147483647, -2147483647 - 1, 0);
+	r1 = printf("%x %x %x\n", 2147483647, -2147483647 - 1, 0);
 	ft_printf("ft_printf:\n");
-	ft_printf("%x %x %x\n", 2147483647, -2147483647 - 1, 0);
+	r2 = ft_printf("%x %x %x\n", 2147483647, -2147483647 - 1, 0);
+	ft_printf("return values: %i / %i\n", r1, r2);
 	printf("printf:\n");
-	printf("%x %x %x %x %x\n", -1, 2500, 12345, 2147483647, -12345);
+	r1 = printf("%x %x %x %x %x\n", -1, 2500, 12345, 2147483647, -12345);
 	ft_printf("ft_printf:\n");
-	ft_printf("%x %x %x %x %x\n", -1, 2500, 12345, 2147483647, -12345);
+	r2 = ft_printf("%x %x %x %x %x\n", -1, 2500, 12345, 2147483647, -12345);
+	ft_printf("return values: %i / %i\n", r1, r2);
 	printf("printf:\n");
-	printf("%s %s %% %p %x %X\n", s, s, &s, 123, 123);
+	r1 = printf("%s %s %% %p %x %X\n", s, s, &s, 123, 123);
 	ft_printf("ft_printf:\n");
-	ft_printf("%s %s %% %p %x %X\n", s, s, &s, 123, 123);
+	r2 = ft_printf("%s %s %% %p %x %X\n", s, s, &s, 123, 123);
+	ft_printf("return values: %i / %i\n", r1, r2);
 }*/
