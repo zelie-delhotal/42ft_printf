@@ -6,44 +6,28 @@
 /*   By: gdelhota <gdelhota@student.42perpigna      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 19:25:54 by gdelhota          #+#    #+#             */
-/*   Updated: 2024/11/14 16:07:37 by gdelhota         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:36:38 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_puthexa(long nb, char format)
-{
-	char	*base;
-	int		written;
-
-	written = 0;
-	if (format == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	if (format == 'p')
-	{
-		nb = (unsigned long) nb;
-		written += write(1, "0x", 2);
-		format = 'x';
-	}
-	else
-		nb = (unsigned int) nb;
-	if (nb < 16)
-		written += write(1, &base[nb], 1);
-	else
-	{
-		written += ft_puthexa(nb / 16, format);
-		written += ft_puthexa(nb % 16, format);
-	}
-	return (written);
-}
-
 static int	ft_putchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
+}
+
+static int	ft_putstr(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (ft_putstr("(null)"));
+	i = -1;
+	while (s[++i])
+		write (1, &s[i], 1);
+	return (i);
 }
 
 static int	ft_putnb(int n, char format)
@@ -67,16 +51,33 @@ static int	ft_putnb(int n, char format)
 	return (written);
 }
 
-static int	ft_putstr(char *s)
+static int	ft_puthexa(unsigned long nb, char format)
 {
-	int	i;
+	char	*base;
+	int		written;
 
-	if (!s)
-		return (ft_putstr("(null)"));
-	i = -1;
-	while (s[++i])
-		write (1, &s[i], 1);
-	return (i);
+	written = 0;
+	base = "0123456789abcdef";
+	if (format == 'X')
+		base = "0123456789ABCDEF";
+	if (format == 'p')
+	{
+		if (nb == 0)
+			return (ft_putstr("(nil)"));
+		nb = (unsigned long) nb;
+		written += write(1, "0x", 2);
+		format = 'P';
+	}
+	if (format == 'x' || format == 'X')
+		nb = (unsigned int) nb;
+	if (nb < 16)
+		written += write(1, &base[nb], 1);
+	else
+	{
+		written += ft_puthexa(nb / 16, format);
+		written += ft_puthexa(nb % 16, format);
+	}
+	return (written);
 }
 
 int	ft_printf(const char *format, ...)
@@ -106,7 +107,6 @@ int	ft_printf(const char *format, ...)
 }
 
 /*#include <stdio.h>
-#include <stdlib.h>
 int	main(void)
 {
 	char *s = "test";
@@ -124,6 +124,10 @@ int	main(void)
 	printf("%p %p %p %p\n", s, &s, &vide2, &vide);
 	ft_printf("ft_printf:\n");
 	ft_printf("%p %p %p %p\n", s, &s, &vide2, &vide);
+	printf("printf:\n");
+	printf("%p %p %p\n", (void *)9223372036854775807, (void *)0, (void *)-1);
+	ft_printf("ft_printf:\n");
+	ft_printf("%p %p %p\n", (void *)9223372036854775807, (void *)0, (void *)-1);
 	printf("printf:\n");
 	printf("%d %d %d\n", 2147483647, -2147483647 - 1, 0);
 	ft_printf("ft_printf:\n");
